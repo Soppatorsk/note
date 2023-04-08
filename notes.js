@@ -18,7 +18,7 @@ var progress = 0;
 let notes = [];
 let daily = [];
 
-var color = "#FFA042"; //TODO CSS it
+var color = "#00FFAE"; //TODO CSS it
 var ding = new Audio('res/ding.ogg');
 
 function initPage() {
