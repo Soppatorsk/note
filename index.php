@@ -112,7 +112,6 @@ document.getElementById('postForm').addEventListener('submit', addNote);
 <div id="numbers">
 </div>
 			<div id="achievements">
-				<img class="ach" src="img/LostEPCover.png" title="The Lost EP">
 				<img class="achLocked" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/269210/043b8db1a5477c2a26279f3928e3f82bb847c6c7.jpg" title="1,000,000 SEK">
 				<img class="achLocked" src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Map_railroad_japan_ibusukimakurazaki_rough.png" title="Visit Japan">
 			</div>

@@ -40,23 +40,23 @@ window.addEventListener("keydown", function (event) {
       checkItem(7);
       break;
     case "q":
-      checkItemDaily(-1);
+      checkItemDaily(0);
       updateProgress();
       break;
     case "w":
-      checkItemDaily(0);
-      break;
-    case "e":
       checkItemDaily(1);
       break;
-    case "r":
+    case "e":
       checkItemDaily(2);
       break;
-    case "t":
+    case "r":
       checkItemDaily(3);
       break;
-    case "y":
+    case "t":
       checkItemDaily(4);
+      break;
+    case "y":
+      checkItemDaily(5);
       break;
     case "i":
       inputMode = true;
