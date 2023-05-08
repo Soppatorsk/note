@@ -10,15 +10,13 @@ var scorePath = "lists/score";
 let todoDivID = new Array("td0", "td1", "td2", "td3", "td4", "td5", "td6", "td7", "td8", "td9");
 let dailyDivID = new Array("d0", "d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8", "d9");
 
-var f; //last fileread
-
 var score = 0;
 var progress = 0;
 
 let notes = [];
 let daily = [];
 
-var color = "#00FFAE"; //TODO CSS it
+var color = "#9AC3E3"; //TODO CSS it
 var ding = new Audio('res/ding.ogg');
 
 function initPage() {
@@ -42,15 +40,13 @@ function clean() { //This fixes visual glitches. I dont know why.
 }
 
 //READ AND PARSE
-function readFile(file, parse = false) {
+async function readFile(file, parse = false) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', file, true);
   xhr.setRequestHeader("Cache-Control", "no-cache");
   xhr.setRequestHeader("Pragma", "no-cache");
   xhr.onload = async function () {
     if (this.status == 200) {
-      //console.log(file, this.responseText);
-      //f = this.responseText;
       if (parse) { //TODO switch in a parse function? 
         switch (file) {
           case todoPath:
@@ -58,29 +54,27 @@ function readFile(file, parse = false) {
             break;
             case dailyPath:
               parseDaily(this.responseText);
-            break;
-            case donePath:
-            parseDone(this.responseText);
-            break;
-            case progressPath:
-            parseProgress(this.responseText);
-            break;
-            case scorePath:
-            parseScore(this.responseText);
-        }  
-        } else {
-          f = await this.response
-        }
+              break;
+              case donePath:
+                parseDone(this.responseText);
+                break;
+                case progressPath:
+                  parseProgress(this.responseText);
+                  break;
+                  case scorePath:
+                    parseScore(this.responseText);
+                  } 
+                }  
+    return this.responseText;
       }
     }
     xhr.send();
-    return f;
   }
 
 function parseTodo(r) {
   clean();
   var lines = r.split('\n');
-  for (var i = 0; i < lines.length; i++) { //i < lines.length
+  for (var i = 0; i < lines.length; i++) { 
     if (lines[i] != null) {
       notes[i] = lines[i];
       document.getElementById(todoDivID[i]).innerHTML = lines[i];
@@ -90,7 +84,7 @@ function parseTodo(r) {
 
 function parseDaily(r) {
   var complete = 0;
-  var lines = r.split('\n'); //actually creates one extra abundant entry
+  var lines = r.split('\n'); // creates one extra abundant entry
   for (var i = 0; i < lines.length; i++) {
     if (lines[i] != null && lines[i] != "") {
       let obj = JSON.parse(lines[i]);
@@ -113,7 +107,8 @@ function parseDone(r) {
   }
 }
 
-function parseScore(r) { //TODO idk why r wont work with this
+ function parseScore(r) { //TODO idk why r wont work with this
+  console.log(r);
   var elem = document.getElementById("score");
   score = r;
   elem.style.color = color;
@@ -121,6 +116,7 @@ function parseScore(r) { //TODO idk why r wont work with this
 }
 
 function parseProgress(r) {
+  console.log(r);
   var num = Math.round(r / 2042 * 100) + "%";
   var elem = document.getElementById("myBar");
   elem.style.backgroundColor = color;
@@ -136,7 +132,7 @@ function writeFile(params) {
   
   xhr.onload = function () {
     //console.log(this.responseText);
-    readAll();
+    //readAll();
   }
   xhr.send(params);
 }
@@ -210,15 +206,35 @@ function checkItemDaily(n) {
   addScore(1);
 }
 
-function updateProgress() {
-  var n = parseInt(readFile(progressPath)) + 10;
-  var params = "progress=" + n;
-  writeFile(params);
+function updateProgress(i) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', progressPath, true);
+  xhr.setRequestHeader("Cache-Control", "no-cache");
+  xhr.setRequestHeader("Pragma", "no-cache");
+  xhr.onload = async function () {
+    if (this.status == 200) {
+      progress = parseInt(this.response) + i;
+      writeFile("progress="+progress);
+      readFile(progressPath, true);
+      }
+    }
+    xhr.send();
+
 }
 
-function addScore(i) {
-  s = readFile(scorePath);
-  console.log(s);
+async function addScore(i) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', scorePath, true);
+  xhr.setRequestHeader("Cache-Control", "no-cache");
+  xhr.setRequestHeader("Pragma", "no-cache");
+  xhr.onload = async function () {
+    if (this.status == 200) {
+      score = parseInt(this.response) + i;
+      writeFile("score="+score);
+      readFile(scorePath, true);
+      }
+    }
+    xhr.send();
 }
 //OTHER
 function modeCycle() {

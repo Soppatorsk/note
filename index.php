@@ -13,7 +13,6 @@ $song	= $lines[0];
 $kanji 	 = $lines[1];
 $reading = $lines[2];
 
-$nn = $lines[3];
 ?>
 <!DOCTYPE html>
 <html>
