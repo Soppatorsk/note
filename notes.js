@@ -267,8 +267,8 @@ function modeCycle() {
 
 function getTime() {
   var date = new Date();
-  document.getElementById("time").innerHTML = date.toLocaleTimeString('sv-SE');
-  setTimeout(getTime, 1000);
+  document.getElementById("time").innerHTML = date.toLocaleTimeString('sv-SE').slice(0, -3);
+  setTimeout(getTime, 30000);
 }
 
 function getDate() {
