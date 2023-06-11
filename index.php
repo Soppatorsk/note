@@ -1,7 +1,7 @@
 <?php
 $cookie_name = "secert";
 $cookie_value = "very sellrcret!!!!!";
-setcookie($cookie_name, $cookie_value, time()+(86400 * 3000), "/"); //uncomment and recomment this file when cookie runs out
+#setcookie($cookie_name, $cookie_value, time()+(86400 * 3000), "/"); //uncomment and recomment this file when cookie runs out
 if (!isset($_COOKIE[$cookie_name])) {
 	header('Location: http://www.torsk.net/');
 	//TODO this is stupid but functional. Make a login page?
@@ -111,7 +111,10 @@ document.getElementById('postForm').addEventListener('submit', addNote);
 <div id="numbers">
 </div>
 			<div id="achievements">
+
+<img class="achLocked" src="/img/daugava.png" title="Project Daugava"> 
 				<img class="achLocked" src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/269210/043b8db1a5477c2a26279f3928e3f82bb847c6c7.jpg" title="1,000,000 SEK">
+
 				<img class="achLocked" src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Map_railroad_japan_ibusukimakurazaki_rough.png" title="Visit Japan">
 			</div>
 		</div>

@@ -21,6 +21,6 @@ nn=$(curl -s -X "GET" "https://api.spotify.com/v1/artists/4l2DJUqoeDffml9KT1nSCN
 echo $nn >> /var/www/note/lists/today
 
 #Calendar image
-cp /home/simon/calendar/$(echo $(date +"%m").jpg) /var/www/note/img/calendar.jpg
+#cp /home/simon/calendar/$(echo $(date +"%m").jpg) /var/www/note/img/calendar.jpg
 
 
